@@ -11,23 +11,12 @@
  */
 class Solution {
 public:
-    int find(TreeNode *p, int &k)
-    {
-        int a;
-        if (p->left!=nullptr)
-            a = find(p->left, k);
-        if (k<=0)
-            return a;
-        
+    int kthSmallest(TreeNode* root, int &k) {
+        if(root==nullptr) return -1;
+        int ans = kthSmallest(root->left, k); 
+        if(ans!=-1) return ans;
         --k;
-        if(k==0)
-            return p->val;
-
-        if (p->right!=nullptr)
-            return find(p->right, k);
-        return -1;
-    }
-    int kthSmallest(TreeNode* root, int k) {
-        return find(root, k);
+        if(k==0) return root->val;
+        return kthSmallest(root->right, k);
     }
 };
